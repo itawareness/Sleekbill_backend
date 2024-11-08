@@ -18,10 +18,6 @@ public class DebitNoteItem {
     private double discount;
     private double total;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "debit_note_id")
-    private DebitNote debitNote;
-
     // Constructors
     public DebitNoteItem() {}
 
@@ -98,11 +94,5 @@ public class DebitNoteItem {
         this.total = total;
     }
 
-    public DebitNote getDebitNote() {
-        return debitNote;
-    }
 
-    public void setDebitNote(DebitNote debitNote) {
-        this.debitNote = debitNote;
-    }
 }
