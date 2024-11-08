@@ -19,6 +19,9 @@ public class ClientController {
     public ResponseEntity<Client> addClient(@RequestBody Client client) {
         Client savedClient = clientService.saveClient(client);
         return ResponseEntity.ok(savedClient);
+
+
+
     }
     
     
