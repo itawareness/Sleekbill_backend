@@ -3,6 +3,9 @@ package com.orage.clientservice.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.orage.clientservice.model.Client;
@@ -15,17 +18,11 @@ public class VendorService {
 	
     @Autowired
     private ClientRepository clientRepository;
-    
-    private final VendorRepository vendorRepository;
 
-    public VendorService(VendorRepository vendorRepository) {
-        this.vendorRepository = vendorRepository;
-    }
+    @Autowired
+    private  VendorRepository vendorRepository;
 
-//    public Vendor saveVendor(Vendor vendor) {
-//        return vendorRepository.save(vendor);
-//    }
-    
+
 
     // Add new vendor
     public Vendor saveVendor(Vendor vendor) {
@@ -53,12 +50,15 @@ public class VendorService {
     }
     
     
-    
-    
-    
-    
-    public List<Vendor> fetchAllVendors()
-    {
-    	return vendorRepository.findAll();
+
+    public Page<Vendor> getVendors(int page, int size, String search) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (search != null || !search.isEmpty()) {
+            return vendorRepository.findByCompanyNameContainingIgnoreCase(search, pageable);
+
+        }
+            return vendorRepository.findAll(pageable); // If no search, return all vendors with pagination
+
     }
 }
