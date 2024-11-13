@@ -3,14 +3,18 @@ package com.orage.clientservice.controller;
 import com.orage.clientservice.model.Client;
 import com.orage.clientservice.service.ClientService;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.orage.clientservice.service.ExcelExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,9 @@ import org.springframework.web.bind.annotation.*;
 public class ClientController {
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private ExcelExportService excelExportService;
 
     @PostMapping("/addClients")
     public ResponseEntity<Client> addClient(@RequestBody Client client) {
@@ -47,16 +54,6 @@ public class ClientController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PostMapping("/deleteClients")
-//    public ResponseEntity<String> deleteClients(@RequestBody List<Long> clientIds) {
-//        try {
-//            clientService.deleteAllById(clientIds);
-//            return ResponseEntity.ok("Selected clients deleted successfully.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(500).body("Error deleting clients: " + e.getMessage());
-//        }
-//    }
-
     @PostMapping("/deleteClients")
     public ResponseEntity<Map<String, String>> deleteClients(@RequestBody List<Long> clientIds) {
         // Your logic for deleting the clients
@@ -66,5 +63,19 @@ public class ClientController {
         response.put("message", "Selected clients deleted successfully.");
         return ResponseEntity.ok(response);
     }
+
+
+    // Export Clients to Excel (Paginated)
+    @GetMapping("/exportClients")
+    public ResponseEntity<byte[]> exportClientsToExcel(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) throws IOException {
+
+        byte[] excelFile = excelExportService.exportClientsToExcel(page, size);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=clients.xlsx");
+        return new ResponseEntity<>(excelFile, headers, HttpStatus.OK);
+    }
+
 
 }
