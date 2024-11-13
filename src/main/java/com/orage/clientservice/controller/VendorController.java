@@ -4,12 +4,9 @@ import com.orage.clientservice.model.Vendor;
 import com.orage.clientservice.service.VendorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -21,7 +18,7 @@ public class VendorController {
     @Autowired
     private VendorService vendorService;
 
-    @PostMapping
+    @PostMapping("/addVendor")
     public ResponseEntity<Vendor> addVendor(@RequestBody Vendor vendor) {
         Vendor savedVendor = vendorService.saveVendor(vendor);
 
@@ -34,10 +31,14 @@ public class VendorController {
         return ResponseEntity.created(location).body(savedVendor);
     }
     
-    
-    @GetMapping
-    public ResponseEntity<List<Vendor>> fetchVendors(){   	
-    	List<Vendor> fetchAllVendors = vendorService.fetchAllVendors();
-    	return ResponseEntity.ok(fetchAllVendors);
+
+
+    @GetMapping("/getVendors")
+    public Page<Vendor> getVendors(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(required = false, defaultValue = "") String search) {
+
+        return vendorService.getVendors(page, size, search);
     }
 }

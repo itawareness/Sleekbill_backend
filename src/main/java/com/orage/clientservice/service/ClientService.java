@@ -3,7 +3,11 @@ package com.orage.clientservice.service;
 import java.util.List;
 import java.util.Random;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.orage.clientservice.model.Client;
@@ -23,53 +27,6 @@ public class ClientService {
 		this.clientRepository = clientRepository;
 	}
 
-//    public Client saveClient(Client client) {
-//    	
-//    	
-//    	if(client.isUseAsVendor()) {
-//    		
-//    		
-//    	
-//    	Vendor v = new Vendor();
-//    	v.setCompanyName(client.getCompanyName());
-//    	v.setPhone(client.getPhone());
-//    	v.setEmail(client.getEmail());
-//    	v.setGstTreatment(client.getGstTreatment());
-//    	v.setGstin(client.getGstin());
-//    	v.setVat(client.getVat());
-//    	 return clientRepository.save(client);
-//    	}else {
-//    		System.out.println("Error coming >>>>>>>>>>>>>>>>>>>>");
-//    		 //return clientRepository.save(client);
-//    	}
-//    	 return clientRepository.save(client);
-//    }
-//    
-
-//	public Client saveClient(Client client) {
-//		// Save the client to the Client table
-//		Client savedClient = clientRepository.save(client);
-//
-//		// If the client should also be treated as a vendor, save to the Vendor table
-//		if (client.isUseAsVendor()) {
-//			Vendor vendor = new Vendor();
-//			vendor.setCompanyName(client.getCompanyName());
-//			vendor.setPhone(client.getPhone());
-//			vendor.setEmail(client.getEmail());
-//			vendor.setGstTreatment(client.getGstTreatment());
-//			vendor.setGstin(client.getGstin());
-//			vendor.setPan(client.getPan());
-//			// vendor.setTin(null);
-//			vendor.setVat(client.getVat());
-//			vendor.setWebsite(client.getWebsite());
-//           
-//			vendorRepository.save(vendor);
-//		}
-//
-//		return savedClient;
-//	}
-
-	
 	
 	 // Method to generate a unique 6-digit vendor code
     private String generateVendorCode() {
@@ -113,9 +70,33 @@ public class ClientService {
         return savedClient;
     }
         
-    
-       
-	public List<Client> fetchAllClients() {
-		return clientRepository.findAll();
-	}
+
+
+
+    public Page<Client> getClients(int page, int size, String search) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        // If search is provided, filter based on company name
+        if (search != null && !search.isEmpty()) {
+            return clientRepository.findByCompanyNameContainingIgnoreCase(search, pageable);
+        }
+
+        // If no search, return all clients with pagination
+        return clientRepository.findAll(pageable);
+    }
+
+    public void deleteClient(Long id) {
+        clientRepository.deleteById(id);
+    }
+
+    // Method to delete all clients by their IDs
+    @Transactional
+    public void deleteAllById(List<Long> clientIds) {
+        // If clientIds is empty, do nothing
+        if (clientIds != null && !clientIds.isEmpty()) {
+            clientRepository.deleteAllByIdIn(clientIds);
+        }
+    }
+
+
 }
