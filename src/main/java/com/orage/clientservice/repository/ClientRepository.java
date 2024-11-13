@@ -16,9 +16,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Page<Client> findByCompanyNameContainingIgnoreCase(String companyName, Pageable pageable);
 
+    Page<Client> findAll(Pageable pageable);
 
-
-    // Custom query to delete clients by their IDs
     void deleteAllByIdIn(List<Long> ids);
 }
 

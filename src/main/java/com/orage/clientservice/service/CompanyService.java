@@ -15,6 +15,7 @@ public class CompanyService {
 
     @Autowired
     public CompanyService(CompanyRepository profileRepository) {
+
         this.companyRepository = profileRepository;
     }
 
