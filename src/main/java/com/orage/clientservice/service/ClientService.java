@@ -3,6 +3,7 @@ package com.orage.clientservice.service;
 import java.util.List;
 import java.util.Random;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -84,7 +85,18 @@ public class ClientService {
         return clientRepository.findAll(pageable);
     }
 
+    public void deleteClient(Long id) {
+        clientRepository.deleteById(id);
+    }
 
+    // Method to delete all clients by their IDs
+    @Transactional
+    public void deleteAllById(List<Long> clientIds) {
+        // If clientIds is empty, do nothing
+        if (clientIds != null && !clientIds.isEmpty()) {
+            clientRepository.deleteAllByIdIn(clientIds);
+        }
+    }
 
 
 }
