@@ -78,4 +78,8 @@ public class CreditNote {
     public void setItems(List<CreditNoteItem> items) {
         this.items = items;
     }
+
+    public CreditNote orElseThrow(Object o) {
+        return null;
+    }
 }
