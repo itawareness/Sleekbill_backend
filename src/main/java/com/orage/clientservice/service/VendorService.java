@@ -66,7 +66,7 @@ public class VendorService {
     // Method to delete all clients by their IDs
     @Transactional
     public void deleteAllById(List<Long> vendorIds) {
-        // If clientIds is empty, do nothing
+        // If vendorIds is empty, do nothing
         if (vendorIds != null && !vendorIds.isEmpty()) {
             vendorRepository.deleteAllByIdIn(vendorIds);
         }
