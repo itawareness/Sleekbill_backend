@@ -2,7 +2,9 @@ package com.orage.clientservice.service;
 
 
 import com.orage.clientservice.model.Client;
+import com.orage.clientservice.model.Vendor;
 import com.orage.clientservice.repository.ClientRepository;
+import com.orage.clientservice.repository.VendorRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +16,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @Service
-public class ExcelExportService {
+public class VendorExcelExportService {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private VendorRepository vendorRepository;
 
-    // Export clients to Excel based on pagination
-    public byte[] exportClientsToExcel(int page, int size) throws IOException {
+    // Export vendors to Excel based on pagination
+    public byte[] exportVendorsToExcel(int page, int size) throws IOException {
         // Paginated request to fetch clients
-        Page<Client> clientsPage = clientRepository.findAll(PageRequest.of(page, size));
+        Page<Vendor> vendorsPage = vendorRepository.findAll(PageRequest.of(page, size));
 
         // Create a new workbook and sheet for Excel export
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Clients");
+        Sheet sheet = workbook.createSheet("Vendors");
 
         // Create cell style for headers
         CellStyle headerStyle = createHeaderCellStyle(workbook);
@@ -39,7 +41,7 @@ public class ExcelExportService {
 
         // Set the headers with bold and color styling
         String[] headers = {
-                "Client Id", "Company Name", "Phone", "Email", "GST Treatment", "GSTIN", "PAN", "TIN", "VAT"
+                "Vendor Id", "Company Name", "Phone", "Email", "GST Treatment", "GSTIN", "PAN", "VAT" , "Vendor Code", "Website"
         };
 
         for (int i = 0; i < headers.length; i++) {
@@ -48,20 +50,22 @@ public class ExcelExportService {
             cell.setCellStyle(headerStyle);
         }
 
-        // Populate the data rows with client data
+        // Populate the data rows with vendor data
         int rowNum = 1;
-        for (Client client : clientsPage.getContent()) {
+        for (Vendor vendor : vendorsPage.getContent()) {
             Row row = sheet.createRow(rowNum++);
 
-            createDataCell(row, 0, client.getId(), dataStyle);
-            createDataCell(row, 1, client.getCompanyName(), dataStyle);
-            createDataCell(row, 2, client.getPhone(), dataStyle);
-            createDataCell(row, 3, client.getEmail(), dataStyle);
-            createDataCell(row, 4, client.getGstTreatment(), dataStyle);
-            createDataCell(row, 5, client.getGstin(), dataStyle);
-            createDataCell(row, 6, client.getPan(), dataStyle);
-            createDataCell(row, 7, client.getTin(), dataStyle);
-            createDataCell(row, 8, client.getVat(), dataStyle);
+            createDataCell(row, 0, vendor.getId(), dataStyle);
+            createDataCell(row, 1, vendor.getCompanyName(), dataStyle);
+            createDataCell(row, 2, vendor.getPhone(), dataStyle);
+            createDataCell(row, 3, vendor.getEmail(), dataStyle);
+            createDataCell(row, 4, vendor.getGstTreatment(), dataStyle);
+            createDataCell(row, 5, vendor.getGstin(), dataStyle);
+            createDataCell(row, 6, vendor.getPan(), dataStyle);
+            createDataCell(row, 7, vendor.getVat(), dataStyle);
+            createDataCell(row, 8, vendor.getVendorCode(), dataStyle);
+            createDataCell(row, 9, vendor.getWebsite(), dataStyle);
+
         }
 
         // Adjust column widths to fit the content

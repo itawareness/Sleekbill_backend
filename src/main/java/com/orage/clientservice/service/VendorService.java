@@ -2,6 +2,7 @@ package com.orage.clientservice.service;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,5 +61,14 @@ public class VendorService {
         }
             return vendorRepository.findAll(pageable); // If no search, return all vendors with pagination
 
+    }
+
+    // Method to delete all clients by their IDs
+    @Transactional
+    public void deleteAllById(List<Long> vendorIds) {
+        // If clientIds is empty, do nothing
+        if (vendorIds != null && !vendorIds.isEmpty()) {
+            vendorRepository.deleteAllByIdIn(vendorIds);
+        }
     }
 }
