@@ -18,9 +18,7 @@ public class CreditNoteItem {
     private double discount;
     private double total;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "credit_note_id")
-    private CreditNote creditNote;
+
 
     // Constructors, getters, and setters
     public CreditNoteItem() {}
@@ -97,11 +95,5 @@ public class CreditNoteItem {
         this.total = total;
     }
 
-    public CreditNote getCreditNote() {
-        return creditNote;
-    }
 
-    public void setCreditNote(CreditNote creditNote) {
-        this.creditNote = creditNote;
-    }
 }

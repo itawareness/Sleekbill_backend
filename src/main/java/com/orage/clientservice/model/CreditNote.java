@@ -13,12 +13,17 @@ public class CreditNote {
 
     private String clientName;
     private String number;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String invoiceNumber;
     private String reason;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "creditNote")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "credit_note_id")
     private List<CreditNoteItem> items;
+
+
+
 
     // Constructors, getters, and setters
     public CreditNote() {}

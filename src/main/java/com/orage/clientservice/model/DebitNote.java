@@ -13,11 +13,13 @@ public class DebitNote {
 
     private String clientName;
     private String number;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String invoiceNumber;
     private String reason;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "debitNote")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "debit_note_id")
     private List<DebitNoteItem> items;
 
     // Constructors
