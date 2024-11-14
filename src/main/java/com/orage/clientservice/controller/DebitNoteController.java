@@ -2,7 +2,6 @@ package com.orage.clientservice.controller;
 
 import com.orage.clientservice.model.DebitNote;
 import com.orage.clientservice.service.DebitNoteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,8 +13,12 @@ import java.util.List;
 @RequestMapping("/api/debit-notes")
 public class DebitNoteController {
 
-    @Autowired
-    private DebitNoteService service;
+    private final DebitNoteService service;
+
+    // Constructor injection for service dependency
+    public DebitNoteController(DebitNoteService service) {
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<DebitNote> createDebitNote(@RequestBody DebitNote debitNote) {
@@ -32,8 +35,7 @@ public class DebitNoteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DebitNote> getDebitNoteById(@PathVariable Long id) {
-        DebitNote debitNote = service.findDebitNoteById(id)
-                .orElseThrow(() -> new RuntimeException("Debit Note not found with id " + id));
+        DebitNote debitNote = service.findDebitNoteById(id);
         return ResponseEntity.ok(debitNote);
     }
 

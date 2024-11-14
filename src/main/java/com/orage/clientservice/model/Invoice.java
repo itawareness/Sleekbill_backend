@@ -91,7 +91,7 @@ public class Invoice {
 	private double item_quantity;
 	
 	@Min(value = 1, message = "Item price must be greater than zero")
-	@NotNull(message = "Item price cannot be null")
+	@NotNull(message = "Item price cannot be null and empty")
 	@Column(name = "item_price")
 	private Double item_price;
     
@@ -110,4 +110,7 @@ public class Invoice {
 	@Column(name = "total")
 	private Double total;
 
+	public String getClientName() {
+        return "";
+    }
 }
