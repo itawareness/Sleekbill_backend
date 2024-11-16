@@ -20,7 +20,10 @@ public class Vendor {
     private String vendorCode;
     private boolean useAsClient;
     private boolean useForDispatch;
-
+    private String contactPerson;
+    private String contactPhone;
+    private String contactEmail;
+    
     // Default constructor
     public Vendor() {
     }
@@ -28,7 +31,7 @@ public class Vendor {
     // All-args constructor
     public Vendor(String companyName, String phone, String email, String gstTreatment,
                   String gstin, String pan, String vat, String website, String vendorCode,
-                  boolean useAsClient, boolean useForDispatch) {
+                  boolean useAsClient, boolean useForDispatch,String contactPerson,String contactPhone,String contactEmail) {
         this.companyName = companyName;
         this.phone = phone;
         this.email = email;
@@ -40,6 +43,9 @@ public class Vendor {
         this.vendorCode = vendorCode;
         this.useAsClient = useAsClient;
         this.useForDispatch = useForDispatch;
+        this.contactPerson=contactPerson;
+        this.contactPhone=contactPhone;
+        this.contactEmail=contactEmail;
     }
 
     // Getters and Setters
@@ -137,5 +143,27 @@ public class Vendor {
 
     public void setUseForDispatch(boolean useForDispatch) {
         this.useForDispatch = useForDispatch;
+    }
+
+     public String getContactPerson(){
+        return contactPerson;
+     }
+
+    public void setContactPerson(String contactPerson){
+     this.contactPerson=contactPerson;
+    }
+      public String getContactPhone(){
+        return contactPhone;
+     }
+
+    public void setContactPhone(String contactPhone){
+     this.contactPhone=contactPhone;
+    }
+      public String getContactEmail(){
+        return contactEmail;
+     }
+
+    public void setContactEmail(String contactEmail){
+     this.contactEmail=contactEmail;
     }
 }
