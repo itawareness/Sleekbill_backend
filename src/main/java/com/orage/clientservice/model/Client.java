@@ -24,11 +24,15 @@ public class Client {
     private String vat;
     private String website;
     private boolean useAsVendor;
+    private String contactPerson;
+    private String contactPhone;
+    private String contactEmail;
+    
 
     // Constructors
     public Client() {}
 
-    public Client(String companyName, String phone, String email, String gstTreatment, String gstin, String pan, String tin, String vat, String website, boolean useAsVendor) {
+    public Client(String companyName, String phone, String email, String gstTreatment, String gstin, String pan, String tin, String vat, String website, boolean useAsVendor,String contactPerson,String contactPhone,String contactEmail) {
         this.companyName = companyName;
         this.phone = phone;
         this.email = email;
@@ -39,6 +43,9 @@ public class Client {
         this.vat = vat;
         this.website = website;
         this.useAsVendor = useAsVendor;
+        this.contactPerson=contactPerson;
+        this.contactPhone=contactPhone;
+        this.contactEmail=contactEmail;
     }
 
     // Getters and setters
@@ -129,4 +136,25 @@ public class Client {
     public void setUseAsVendor(boolean useAsVendor) {
         this.useAsVendor = useAsVendor;
     }
-}
+
+    public String getContactPerson(){
+        return contactPerson;
+     }
+
+    public void setContactPerson(String contactPerson){
+     this.contactPerson=contactPerson;
+    }
+      public String getContactPhone(){
+        return contactPhone;
+     }
+
+    public void setContactPhone(String contactPhone){
+     this.contactPhone=contactPhone;
+    }
+      public String getContactEmail(){
+        return contactEmail;
+     }
+
+    public void setContactEmail(String contactEmail){
+     this.contactEmail=contactEmail;
+    }
