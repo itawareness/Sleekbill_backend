@@ -47,4 +47,5 @@ public class ItemService {
         item.setCurrency(itemDetails.getCurrency());
         return itemRepository.save(item);
     }
+
 }

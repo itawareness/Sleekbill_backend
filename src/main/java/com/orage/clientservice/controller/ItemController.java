@@ -18,7 +18,7 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping
+    @GetMapping("/getAllItems")
     public List<Item> getAllItems() {
         return itemService.findAllItems();
     }
@@ -37,15 +37,18 @@ public class ItemController {
         return ResponseEntity.ok(item);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable Long id, @RequestBody Item itemDetails) {
-        Item updatedItem = itemService.updateItem(id, itemDetails);
-        return ResponseEntity.ok(updatedItem);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Item> updateItem(@PathVariable Long id, @RequestBody Item itemDetails) {
+//        Item updatedItem = itemService.updateItem(id, itemDetails);
+//        return ResponseEntity.ok(updatedItem);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deleteItem(@PathVariable Long id) {
+//        itemService.deleteItem(id);
+//        return ResponseEntity.ok("Item deleted successfully");
+//    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteItem(@PathVariable Long id) {
-        itemService.deleteItem(id);
-        return ResponseEntity.ok("Item deleted successfully");
-    }
+
+
 }
