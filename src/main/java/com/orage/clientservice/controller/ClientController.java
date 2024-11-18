@@ -1,6 +1,7 @@
 package com.orage.clientservice.controller;
 
 import com.orage.clientservice.model.Client;
+import com.orage.clientservice.model.Item;
 import com.orage.clientservice.service.ClientService;
 
 import java.io.ByteArrayOutputStream;
@@ -75,6 +76,19 @@ public class ClientController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=clients.xlsx");
         return new ResponseEntity<>(excelFile, headers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/getAllClients")
+    public List<Client> getAllClients() {
+        return clientService.findAllClients();
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
+        Client client = clientService.getClientNameById(id).orElseThrow(() -> new RuntimeException("Client not found with id " + id));
+        return ResponseEntity.ok(client);
     }
 
 

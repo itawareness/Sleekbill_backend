@@ -1,8 +1,10 @@
 package com.orage.clientservice.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
+import com.orage.clientservice.model.Item;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,6 +99,13 @@ public class ClientService {
             clientRepository.deleteAllByIdIn(clientIds);
         }
     }
+    public Optional<Client> getClientNameById(Long id) {
+        return clientRepository.findById(id);
+
+    }
 
 
+    public List<Client> findAllClients(){
+        return clientRepository.findAll();
+    }
 }
