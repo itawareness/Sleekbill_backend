@@ -18,10 +18,10 @@ public class InvoiceItem {
     private String itemName;
     private String description;
     private String hsnSac;
-    private Integer quantity;
-    private Double price;
-    private Double discount;
-    private Double gst;
+    private Integer itemQuantity;
+    private Double itemPrice;
+    private Double itemDiscount;
+    private Double itemGst;
     private Double total;
 
 
@@ -66,36 +66,36 @@ public class InvoiceItem {
         this.hsnSac = hsnSac;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Double getItemGst() {
+        return itemGst;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setItemGst(Double itemGst) {
+        this.itemGst = itemGst;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getItemDiscount() {
+        return itemDiscount;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setItemDiscount(Double itemDiscount) {
+        this.itemDiscount = itemDiscount;
     }
 
-    public Double getDiscount() {
-        return discount;
+    public Double getItemPrice() {
+        return itemPrice;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
+    public void setItemPrice(Double itemPrice) {
+        this.itemPrice = itemPrice;
     }
 
-    public Double getGst() {
-        return gst;
+    public Integer getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setGst(Double gst) {
-        this.gst = gst;
+    public void setItemQuantity(Integer itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
     public Double getTotal() {

@@ -1,8 +1,11 @@
 package com.orage.clientservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,22 +15,30 @@ public class Invoices {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="invoice_id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
     private String invoiceNo;
-    private Date invoiceDate;
-    private Date dueDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate invoiceDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
     private String poNo;
-    private Date poDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate poDate;
+
     private String paymentTerms;
     private String termsAndConditions;
     private String privateNotes;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-    private List<InvoiceItem> items;
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InvoiceItem> itemList = new ArrayList<>();
 
     // Getters and setters
 
@@ -64,21 +75,9 @@ public class Invoices {
         this.invoiceNo = invoiceNo;
     }
 
-    public Date getInvoiceDate() {
-        return invoiceDate;
-    }
 
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
 
     public String getPoNo() {
         return poNo;
@@ -88,11 +87,27 @@ public class Invoices {
         this.poNo = poNo;
     }
 
-    public Date getPoDate() {
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(LocalDate invoiceDate) {
+        this.invoiceDate = invoiceDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDate getPoDate() {
         return poDate;
     }
 
-    public void setPoDate(Date poDate) {
+    public void setPoDate(LocalDate poDate) {
         this.poDate = poDate;
     }
 
@@ -112,11 +127,12 @@ public class Invoices {
         this.termsAndConditions = termsAndConditions;
     }
 
-    public List<InvoiceItem> getItems() {
-        return items;
+    public List<InvoiceItem> getItemList() {
+        return itemList;
     }
 
-    public void setItems(List<InvoiceItem> items) {
-        this.items = items;
+    public void setItemList(List<InvoiceItem> itemList) {
+        this.itemList = itemList;
     }
+
 }

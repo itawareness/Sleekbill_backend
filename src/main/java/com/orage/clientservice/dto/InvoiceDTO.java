@@ -1,5 +1,6 @@
 package com.orage.clientservice.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +8,10 @@ public class InvoiceDTO {
 
     private Long clientId;
     private String invoiceNo;
-    private String invoiceDate;
-    private Date dueDate;
+    private LocalDate invoiceDate;
+    private LocalDate dueDate;
     private String poNo;
-    private Date poDate;
+    private LocalDate poDate;
     private String paymentTerms;
     private String termsAndConditions;
     private String privateNotes;
@@ -61,28 +62,28 @@ public class InvoiceDTO {
         this.poNo = poNo;
     }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Date getPoDate() {
-        return poDate;
-    }
-
-    public void setPoDate(Date poDate) {
-        this.poDate = poDate;
-    }
-
-    public String getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(String invoiceDate) {
+    public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalDate getPoDate() {
+        return poDate;
+    }
+
+    public void setPoDate(LocalDate poDate) {
+        this.poDate = poDate;
     }
 
     public String getInvoiceNo() {
