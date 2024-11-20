@@ -40,7 +40,10 @@ public class Invoices {
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InvoiceItem> itemList = new ArrayList<>();
 
-    // Getters and setters
+
+    // Grand Total to store the combined total of all items
+    private Double grandTotal;
+
 
 
     public String getPrivateNotes() {
@@ -133,6 +136,14 @@ public class Invoices {
 
     public void setItemList(List<InvoiceItem> itemList) {
         this.itemList = itemList;
+    }
+
+    public Double getGrandTotal() {
+        return grandTotal;
+    }
+
+    public void setGrandTotal(Double grandTotal) {
+        this.grandTotal = grandTotal;
     }
 
 }

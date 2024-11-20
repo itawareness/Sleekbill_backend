@@ -62,13 +62,27 @@ public class InvoiceListService {
 //
 //        return invoice;
 //    }
+public void calculateGrandTotal(Invoices invoice) {
+    Double grandTotal = 0.0;
 
+    // Loop through the items in the invoice and sum up the total of each item
+    for (InvoiceItem item : invoice.getItemList()) {
+        if (item.getTotal() != null) {
+            grandTotal += item.getTotal();  // Add each item's total
+        }
+    }
+
+    // Set the grandTotal in the invoice object
+    invoice.setGrandTotal(grandTotal);
+}
 
     public Invoices createInvoice(Invoices invoiceDTO) {
         // Validate the client ID
         if (invoiceDTO.getClient() == null || invoiceDTO.getClient().getId() == null) {
             throw new RuntimeException("Client ID must be provided.");
         }
+
+
 
         // Fetch the client from the database
         Client client = clientRepository.findById(invoiceDTO.getClient().getId())
@@ -103,8 +117,13 @@ public class InvoiceListService {
         }
 
         invoice.setItemList(items); // Set all items in the invoice
-
+      // First calculate the grand total
+        calculateGrandTotal(invoice);
         // Save the invoice (cascades the items due to CascadeType.ALL)
         return invoiceRepository.save(invoice);
     }
+
+
+
+
 }

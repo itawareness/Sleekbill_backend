@@ -1,5 +1,6 @@
 package com.orage.clientservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -13,6 +14,7 @@ public class InvoiceItem {
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")
+    @JsonIgnore
     private Invoices invoice;
 
     private String itemName;
@@ -20,8 +22,11 @@ public class InvoiceItem {
     private String hsnSac;
     private Integer itemQuantity;
     private Double itemPrice;
-    private Double itemDiscount;
-    private Double itemGst;
+    @Column(nullable = true)
+    private Double itemDiscount = 0.0;  // Default value of 0.0
+    @Column(nullable = true)
+    private Double itemGst = 0.0;  // Default value of 0.0
+
     private Double total;
 
 
@@ -66,20 +71,20 @@ public class InvoiceItem {
         this.hsnSac = hsnSac;
     }
 
-    public Double getItemGst() {
-        return itemGst;
-    }
-
-    public void setItemGst(Double itemGst) {
-        this.itemGst = itemGst;
-    }
-
     public Double getItemDiscount() {
-        return itemDiscount;
+        return itemDiscount != null ? itemDiscount : 0.0;
     }
 
     public void setItemDiscount(Double itemDiscount) {
-        this.itemDiscount = itemDiscount;
+        this.itemDiscount = (itemDiscount != null) ? itemDiscount : 0.0;
+    }
+
+    public Double getItemGst() {
+        return itemGst != null ? itemGst : 0.0;
+    }
+
+    public void setItemGst(Double itemGst) {
+        this.itemGst = (itemGst != null) ? itemGst : 0.0;
     }
 
     public Double getItemPrice() {
