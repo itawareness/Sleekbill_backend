@@ -108,4 +108,9 @@ public class ClientService {
     public List<Client> findAllClients(){
         return clientRepository.findAll();
     }
+
+
+    public long getClientCount() {
+        return clientRepository.count();
+    }
 }

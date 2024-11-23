@@ -13,8 +13,7 @@ import java.util.Map;
 import com.orage.clientservice.service.ExcelExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,5 +90,9 @@ public class ClientController {
         return ResponseEntity.ok(client);
     }
 
-
+// used for all clients count
+    @GetMapping("/allClientCounts")
+    public long getClientCount() {
+        return clientService.getClientCount();
+    }
 }

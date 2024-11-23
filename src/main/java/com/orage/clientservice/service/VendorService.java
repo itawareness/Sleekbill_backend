@@ -71,4 +71,9 @@ public class VendorService {
             vendorRepository.deleteAllByIdIn(vendorIds);
         }
     }
+
+
+    public long getVendorCount() {
+        return vendorRepository.count();
+    }
 }

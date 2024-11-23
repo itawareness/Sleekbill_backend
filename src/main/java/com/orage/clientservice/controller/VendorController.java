@@ -78,4 +78,9 @@ public class VendorController {
         return new ResponseEntity<>(excelFile, headers, HttpStatus.OK);
     }
 
+// used for all clients count
+   @GetMapping("/allVendorCounts")
+   public long getClientCount() {
+       return vendorService.getVendorCount();
+    }
 }

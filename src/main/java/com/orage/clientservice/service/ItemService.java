@@ -19,6 +19,9 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    public long getItemCount() {
+        return itemRepository.count();
+    }
     public Item saveItem(Item item) {
         return itemRepository.save(item);
     }

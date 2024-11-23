@@ -25,19 +25,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-   //  Endpoint to save a new company profile
-//    @PostMapping("/save")
-//    public ResponseEntity<String> saveCompany(@RequestBody CompanyDTO companyDTO) {
-//        try {
-//            companyService.saveCompany(companyDTO);
-//            return ResponseEntity.ok("Profile saved successfully!");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("An error occurred while saving the profile.");
-//        }
-//    }
-    
+
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> saveCompany(@RequestBody CompanyDTO companyDTO) {
         Map<String, String> response = new HashMap<>();

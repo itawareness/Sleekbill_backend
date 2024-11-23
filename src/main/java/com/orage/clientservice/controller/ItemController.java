@@ -37,6 +37,13 @@ public class ItemController {
         return ResponseEntity.ok(item);
     }
 
+
+    // used for all clients count
+    @GetMapping("/allItemCounts")
+    public long getClientCount() {
+        return itemService.getItemCount();
+    }
+
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Item> updateItem(@PathVariable Long id, @RequestBody Item itemDetails) {
 //        Item updatedItem = itemService.updateItem(id, itemDetails);
@@ -48,7 +55,4 @@ public class ItemController {
 //        itemService.deleteItem(id);
 //        return ResponseEntity.ok("Item deleted successfully");
 //    }
-
-
-
 }
