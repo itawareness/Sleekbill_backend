@@ -28,7 +28,7 @@ public class PurchaseOrderController {
                 .buildAndExpand(savedPurchaseOrder.getId()) // Replace placeholder with actual ID
                 .toUri();
 
-        // Return 201 Created response, with location of the new resource
+
         return ResponseEntity.created(location).body(savedPurchaseOrder);
     }
 
